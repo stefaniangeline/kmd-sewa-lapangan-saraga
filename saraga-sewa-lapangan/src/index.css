@@ -1,0 +1,45 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/plus-jakarta-sans';
+
+/* Palet dari Figma: #fafafa, #217cb7, #bed817.
+   Hijau limau (#bed817) kontrasnya rendah dengan teks putih, jadi selalu dipasangkan dengan teks gelap (--color-ink). */
+@theme {
+  --font-sans: 'Plus Jakarta Sans Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --color-paper: #fafafa;
+  --color-ink: #12202c;
+  --color-muted: #536575;
+  --color-line: #d3dce4;
+  --color-brand: #217cb7;
+  --color-brand-dark: #185d8a;
+  --color-brand-soft: #e5f1f8;
+  --color-lime: #bed817;
+  --color-lime-soft: #f1f6c9;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+:focus-visible {
+  outline: 3px solid var(--color-brand);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}
+
+/* Pola garis untuk slot yang sudah dipesan, supaya status tidak hanya dibedakan lewat warna */
+.hatch {
+  background-image: repeating-linear-gradient(45deg, #dfe6ec 0 4px, #fafafa 4px 9px);
+}
+/* Placeholder foto sebelum foto asli ditaruh di public/photos */
+.photo-ph {
+  background:
+    linear-gradient(135deg, rgba(33, 124, 183, 0.14), rgba(190, 216, 23, 0.16)),
+    #e8eff4;
+}
