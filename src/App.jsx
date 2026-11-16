@@ -8,7 +8,7 @@ import Tinjau from './screens/Tinjau.jsx'
 const INITIAL = { dateIdx: 0, courtId: null, hour: null, duration: 1, usage: null, agreed: false }
 
 export default function App() {
-  const [step, setStep] = useState(0) // 0 olahraga, 1 jadwal, 2 tinjau
+  const [step, setStep] = useState(0)
   const [sport, setSport] = useState(null)
   const [booking, setBooking] = useState(INITIAL)
   const [notice, setNotice] = useState('')

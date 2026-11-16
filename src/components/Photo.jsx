@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-// Menampilkan foto dari public/photos/<src>. Jika file belum ada, tampil placeholder dengan label.
 export default function Photo({ src, label, className = '' }) {
   const [failed, setFailed] = useState(false)
   if (!src || failed) {

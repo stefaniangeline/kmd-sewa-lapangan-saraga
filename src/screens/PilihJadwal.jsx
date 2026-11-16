@@ -217,7 +217,6 @@ export default function PilihJadwal({ sport, booking: b, set, onBack, onNext }) 
         </div>
       </div>
 
-      {/* Ponsel dan tablet: ringkasan jadi bilah bawah yang selalu terlihat */}
       <div className="fixed inset-x-0 bottom-0 z-10 border-t border-line bg-white p-3 lg:hidden">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
           <div>

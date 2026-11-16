@@ -1,15 +1,13 @@
-Taruh foto lapangan di folder ini dengan nama file persis seperti di bawah.
-Selama file belum ada, web menampilkan placeholder bertuliskan "Foto ... menyusul".
+Simpan foto lapangan di folder ini. Pakai nama file berikut supaya fotonya muncul di web:
 
-hero.jpg          foto utama di beranda Sewa Lapangan
-sepak-bola.jpg    kartu olahraga
-basket-voli.jpg   kartu olahraga dan banner layar jadwal
-tenis.jpg         kartu olahraga
-pickleball.jpg    kartu olahraga
-basket-a.jpg      kartu lapangan A
-basket-b.jpg      kartu lapangan B (juga dipakai di layar tinjau)
-basket-c.jpg      kartu lapangan C
-basket-d.jpg      kartu lapangan D
+hero.jpg          foto utama
+sepak-bola.jpg    lapangan sepak bola
+basket-voli.jpg   lapangan basket/voli
+tenis.jpg         lapangan tenis
+pickleball.jpg    lapangan pickleball
+basket-a.jpg      lapangan Basket A
+basket-b.jpg      lapangan Basket B
+basket-c.jpg      lapangan Basket/Voli C
+basket-d.jpg      lapangan Basket/Voli D
 
-Saran: orientasi lanskap, setinggi mata, tanpa orang yang menatap kamera (sesuai anotasi wireframe).
-Ukuran ideal 1600 px pada sisi terpanjang, format .jpg atau .webp (kalau .webp, ubah nama file di src/data.js).
+Usahakan fotonya lanskap dan diambil dari tinggi mata. Kalau fotonya belum ada, web tetap menampilkan placeholder. Foto dipakai dalam format JPG; kalau nama atau formatnya diubah, sesuaikan juga di `src/data.js`.

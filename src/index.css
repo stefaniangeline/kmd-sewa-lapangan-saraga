@@ -1,8 +1,6 @@
 @import 'tailwindcss';
 @import '@fontsource-variable/plus-jakarta-sans';
 
-/* Palet dari Figma: #fafafa, #217cb7, #bed817.
-   Hijau limau (#bed817) kontrasnya rendah dengan teks putih, jadi selalu dipasangkan dengan teks gelap (--color-ink). */
 @theme {
   --font-sans: 'Plus Jakarta Sans Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --color-paper: #fafafa;
@@ -33,11 +31,9 @@ body {
   * { transition: none !important; animation: none !important; }
 }
 
-/* Pola garis untuk slot yang sudah dipesan, supaya status tidak hanya dibedakan lewat warna */
 .hatch {
   background-image: repeating-linear-gradient(45deg, #dfe6ec 0 4px, #fafafa 4px 9px);
 }
-/* Placeholder foto sebelum foto asli ditaruh di public/photos */
 .photo-ph {
   background:
     linear-gradient(135deg, rgba(33, 124, 183, 0.14), rgba(190, 216, 23, 0.16)),
