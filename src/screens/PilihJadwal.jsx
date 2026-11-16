@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import {
   GROUPS, getDays, slotStatus, priceAt, maxDuration, totalPrice, availableCount, HOURS, rupiah, jam, PRICE_NOTE,
+  PRICE_LOW, PRICE_MID, PRICE_HIGH,
 } from '../data.js'
 import Photo from '../components/Photo.jsx'
 import Button from '../components/Button.jsx'
@@ -27,13 +28,29 @@ function Slot({ hour, price, status, selected, inRange, onClick }) {
       {status === 'dipesan' && <span className="flex items-center gap-1 rounded bg-white/90 px-1 text-xs"><Lock className="size-3" />Dipesan</span>}
       {status === 'lewat' && <span className="flex items-center gap-1 text-xs"><Clock className="size-3" />Terlewat</span>}
       {selected && <span className="flex items-center gap-1 rounded bg-lime px-1.5 text-xs font-bold text-ink"><Check className="size-3" />Dipilih</span>}
+      {inRange && !selected && <span className="rounded bg-white px-1.5 text-xs font-bold text-brand-dark">Termasuk durasi</span>}
     </button>
+  )
+}
+
+function DurationSelect({ b, set, className = '' }) {
+  const maxD = b.hour != null ? maxDuration(b.dateIdx, b.courtId, b.hour) : 1
+  return (
+    <select
+      id={`durasi-${className ? 'bar' : 'panel'}`}
+      aria-label="Durasi"
+      value={b.duration}
+      disabled={b.hour == null}
+      onChange={(e) => set({ duration: Number(e.target.value) })}
+      className={`rounded-lg border border-line bg-white px-2 py-1 text-sm font-semibold disabled:text-muted ${className}`}
+    >
+      {Array.from({ length: maxD }, (_, i) => i + 1).map((d) => <option key={d} value={d}>{d} jam</option>)}
+    </select>
   )
 }
 
 function Summary({ sport, days, b, set, total, onNext, canNext }) {
   const court = sport.courts.find((c) => c.id === b.courtId)
-  const maxD = b.hour != null ? maxDuration(b.dateIdx, b.courtId, b.hour) : 1
   const rows = [
     ['Lapangan', court ? court.nama : 'Belum dipilih'],
     ['Tanggal', days[b.dateIdx].panjang],
@@ -50,18 +67,8 @@ function Summary({ sport, days, b, set, total, onNext, canNext }) {
           </div>
         ))}
         <div className="flex items-center justify-between gap-3">
-          <dt className="text-muted"><label htmlFor="durasi">Durasi</label></dt>
-          <dd>
-            <select
-              id="durasi"
-              value={b.duration}
-              disabled={b.hour == null}
-              onChange={(e) => set({ duration: Number(e.target.value) })}
-              className="rounded-lg border border-line bg-white px-2 py-1 text-sm font-semibold disabled:text-muted"
-            >
-              {Array.from({ length: maxD }, (_, i) => i + 1).map((d) => <option key={d} value={d}>{d} jam</option>)}
-            </select>
-          </dd>
+          <dt className="text-muted">Durasi</dt>
+          <dd><DurationSelect b={b} set={set} /></dd>
         </div>
       </dl>
       <div className="flex items-baseline justify-between border-t border-line pt-3">
@@ -89,7 +96,7 @@ export default function PilihJadwal({ sport, booking: b, set, onBack, onNext }) 
 
   const pickDate = (i) => set({ dateIdx: i, hour: null, duration: 1 })
   const pickCourt = (id) => set({ courtId: id, hour: null, duration: 1, usage: null })
-  const pickHour = (h) => set({ hour: h, duration: 1 })
+  const pickHour = (h) => set(b.hour === h ? { hour: null, duration: 1 } : { hour: h, duration: 1 })
   const month = days[0].date.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })
 
   return (
@@ -179,9 +186,10 @@ export default function PilihJadwal({ sport, booking: b, set, onBack, onNext }) 
               <li className="flex items-center gap-2"><i className="hatch size-5 rounded border-2 border-line" /><Lock className="size-3.5" />Dipesan</li>
               <li className="flex items-center gap-2"><i className="size-5 rounded border-2 border-dashed border-line bg-slate-100" /><Clock className="size-3.5" />Waktu terlewat</li>
               <li className="flex items-center gap-2"><i className="size-5 rounded border-2 border-brand bg-brand" /><Check className="size-3.5" />Dipilih</li>
+              <li className="flex items-center gap-2"><i className="size-5 rounded border-2 border-brand bg-brand-soft" />Termasuk durasi</li>
             </ul>
             <p className="mb-4 text-sm text-muted">
-              Harga per jam bervariasi menurut jam dan hari{weekend ? ' (akhir pekan)' : ''}: Rp 40.000, Rp 50.000, atau Rp 75.000.
+              Harga per jam bervariasi menurut jam dan hari{weekend ? ' (akhir pekan)' : ''}: {rupiah(PRICE_LOW)}, {rupiah(PRICE_MID)}, atau {rupiah(PRICE_HIGH)}.
             </p>
             {b.courtId == null ? (
               <p className="rounded-xl border border-dashed border-line bg-white p-6 text-center text-sm text-muted">
@@ -212,18 +220,21 @@ export default function PilihJadwal({ sport, booking: b, set, onBack, onNext }) 
           </section>
         </div>
 
-        <div className="lg:sticky lg:top-4">
+        <div className="hidden lg:sticky lg:top-4 lg:block">
           <Summary sport={sport} days={days} b={b} set={set} total={total} onNext={onNext} canNext={canNext} />
         </div>
       </div>
 
       <div className="fixed inset-x-0 bottom-0 z-10 border-t border-line bg-white p-3 lg:hidden">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
-          <div>
+        <div className="mx-auto grid max-w-6xl gap-2">
+          <div className="flex items-center justify-between gap-3">
             <p className="text-xs text-muted">{canNext ? `${jam(b.hour)} sampai ${jam(b.hour + b.duration)}` : 'Belum ada jam dipilih'}</p>
-            <strong className="rounded bg-lime px-2 text-lg font-extrabold tabular-nums">{rupiah(total)}</strong>
+            <label className="flex items-center gap-2 text-xs text-muted">Durasi <DurationSelect b={b} set={set} className="bar" /></label>
           </div>
-          <Button disabled={!canNext} onClick={onNext}>Lanjut ke tinjauan <Arrow className="size-4" /></Button>
+          <div className="flex items-center justify-between gap-3">
+            <strong className="rounded bg-lime px-2 text-lg font-extrabold tabular-nums">{rupiah(total)}</strong>
+            <Button disabled={!canNext} onClick={onNext}>Lanjut ke tinjauan <Arrow className="size-4" /></Button>
+          </div>
         </div>
       </div>
     </main>
