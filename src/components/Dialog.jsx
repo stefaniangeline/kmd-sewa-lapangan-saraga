@@ -13,7 +13,7 @@ export default function Dialog({ open, onClose, title, children, actions }) {
       ref={ref}
       onClose={onClose}
       onClick={(e) => e.target === ref.current && onClose()}
-      className="m-auto w-[min(92vw,30rem)] rounded-2xl p-0 shadow-2xl backdrop:bg-ink/50"
+      className="m-auto w-[min(92vw,30rem)] rounded-2xl border border-white/15 bg-dark-raised p-0 text-white shadow-2xl backdrop:bg-ink/70"
     >
       <div className="grid gap-4 p-6">
         <h2 className="text-lg font-bold">{title}</h2>

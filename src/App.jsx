@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
-import Header from './components/Header.jsx'
-import Stepper from './components/Stepper.jsx'
 import PilihOlahraga from './screens/PilihOlahraga.jsx'
 import PilihJadwal from './screens/PilihJadwal.jsx'
 import Tinjau from './screens/Tinjau.jsx'
+import Toast from './components/Toast.jsx'
 
 const INITIAL = { dateIdx: 0, courtId: null, hour: null, duration: 1, usage: null, agreed: false }
 
@@ -15,6 +14,7 @@ export default function App() {
 
   const set = (patch) => setBooking((b) => ({ ...b, ...patch }))
   const go = (n) => setStep(n)
+  const goBookingStage = (stage) => setStep(stage + 1)
 
   useEffect(() => {
     window.scrollTo({ top: 0 })
@@ -43,19 +43,23 @@ export default function App() {
 
   return (
     <>
-      <Header onHome={reset} />
-      <Stepper current={step} onGo={go} />
-      {step === 0 && <PilihOlahraga onPick={pickSport} />}
+      {step === 0 && <PilihOlahraga onPick={pickSport} onHome={reset} />}
       {step === 1 && (
-        <PilihJadwal sport={sport} booking={booking} set={set} onBack={() => go(0)} onNext={() => go(2)} />
+          <PilihJadwal sport={sport} booking={booking} set={set} onBack={() => go(0)} onNext={() => go(2)} onHome={reset} onGo={goBookingStage} />
       )}
       {step === 2 && (
-        <Tinjau sport={sport} booking={booking} set={set} onBack={() => go(1)} onReset={reset} />
+        <Tinjau
+          sport={sport}
+          booking={booking}
+          set={set}
+          onBack={() => go(1)}
+          onReset={reset}
+          onHome={reset}
+          onGo={goBookingStage}
+        />
       )}
-      <div role="status" aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-20 z-20 flex justify-center px-4 lg:bottom-6">
-        {notice && (
-          <p className="pointer-events-auto max-w-md rounded-xl bg-ink px-4 py-3 text-sm text-white shadow-lg">{notice}</p>
-        )}
+      <div className="pointer-events-none fixed inset-x-0 bottom-20 z-20 flex justify-center px-4 lg:bottom-6">
+        <div className="pointer-events-auto"><Toast message={notice} /></div>
       </div>
     </>
   )

@@ -3,27 +3,30 @@
 
 @theme {
   --font-sans: 'Plus Jakarta Sans Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --color-paper: #fafafa;
-  --color-ink: #12202c;
-  --color-muted: #536575;
-  --color-line: #d3dce4;
-  --color-brand: #217cb7;
-  --color-brand-dark: #185d8a;
-  --color-brand-soft: #e5f1f8;
+  --color-paper: #102b3e;
+  --color-ink: #17252d;
+  --color-muted: #b8c8ce;
+  --color-line: rgba(184, 200, 206, 0.22);
+  --color-brand: #397d98;
+  --color-brand-dark: #285d75;
+  --color-brand-soft: #1b4055;
   --color-lime: #bed817;
-  --color-lime-soft: #f1f6c9;
+  --color-lime-soft: rgba(190, 216, 23, 0.14);
+  --color-dark: #102b3e;
+  --color-dark-raised: #173b50;
+  --color-text-on-dark-muted: #b8c8ce;
 }
 
 html {
   scroll-behavior: smooth;
 }
 body {
-  background: var(--color-paper);
-  color: var(--color-ink);
+  background: var(--color-dark);
+  color: #f1f3f3;
   font-family: var(--font-sans);
 }
 :focus-visible {
-  outline: 3px solid var(--color-brand);
+  outline: 3px solid var(--color-lime);
   outline-offset: 2px;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -32,10 +35,15 @@ body {
 }
 
 .hatch {
-  background-image: repeating-linear-gradient(45deg, #dfe6ec 0 4px, #fafafa 4px 9px);
+  background-image: repeating-linear-gradient(45deg, #25485c 0 4px, #102b3e 4px 9px);
+}
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 .photo-ph {
-  background:
-    linear-gradient(135deg, rgba(33, 124, 183, 0.14), rgba(190, 216, 23, 0.16)),
-    #e8eff4;
+  background: linear-gradient(135deg, #547f91, #315c73);
 }
