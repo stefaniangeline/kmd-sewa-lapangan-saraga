@@ -7,8 +7,6 @@ import Photo from '../components/Photo.jsx'
 import Button from '../components/Button.jsx'
 import Header from '../components/Header.jsx'
 import Stepper from '../components/Stepper.jsx'
-import GlassCard from '../components/GlassCard.jsx'
-import TextLink from '../components/TextLink.jsx'
 import TotalBlock from '../components/TotalBlock.jsx'
 import DateChip from '../components/DateChip.jsx'
 import CourtCard from '../components/CourtCard.jsx'
@@ -51,8 +49,8 @@ function DurationSelect({ b, set, className = '' }) {
         const selected = b.duration === d
         return (
           <button key={d} type="button" aria-pressed={selected} disabled={b.hour == null} onClick={() => set({ duration: d })}
-            className={`min-h-12 w-0 min-w-0 flex-1 rounded-full border px-2 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${selected ? 'border-lime bg-lime text-dark' : 'border-white/40 bg-transparent text-white hover:bg-white/10'}`}>
-            {selected && <Check className="mr-1 inline size-4" />}{d} jam
+            className={`min-h-12 min-w-[88px] flex-none rounded-full border px-3 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${selected ? 'border-lime bg-brand text-white' : 'border-white/40 bg-transparent text-white hover:border-lime/70 hover:bg-white/10'}`}>
+            {selected && <Check className="mr-1 inline size-4 text-lime" />}{d} jam
           </button>
         )
       })}
@@ -108,17 +106,13 @@ export default function PilihJadwal({ sport, booking: b, set, onBack, onNext, on
         <div className="relative z-10">
           <Header onHome={onHome} />
           {b.courtId != null && <div className="mx-auto max-w-6xl px-4 pt-5 sm:px-6"><Stepper current={0} onGo={onGo} /></div>}
-          <div className="mx-auto flex min-h-[280px] max-w-6xl items-end justify-between gap-6 px-4 pb-12 pt-16 sm:px-6">
+          <div className="mx-auto grid min-h-[280px] max-w-6xl grid-cols-1 items-end gap-4 px-4 pb-12 pt-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_auto]">
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.2em] text-lime">Jadwal {sport.nama}</p>
               <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Pilih jadwal</h1>
               <p className="mt-3 text-base text-white/85 sm:text-lg">Pilih tanggal, lapangan, dan jam yang tersedia.</p>
-              <TextLink onClick={onBack} className="mt-2 lg:hidden">Ubah olahraga</TextLink>
             </div>
-            <div className="hidden flex-col items-end gap-2 lg:flex">
-              <GlassCard type="Stat" title={String(sport.courts.length)} subtitle="lapangan tersedia" />
-              <TextLink onClick={onBack}>Ubah olahraga</TextLink>
-            </div>
+            <Button variant="secondary" onClick={onBack} className="justify-self-start lg:justify-self-end">Ubah olahraga <Arrow className="size-4" /></Button>
           </div>
         </div>
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-7 bg-lime [clip-path:polygon(0_100%,100%_0,100%_100%)]" />

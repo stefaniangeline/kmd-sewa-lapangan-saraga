@@ -12,7 +12,7 @@ import ChoiceOption from '../components/ChoiceOption.jsx'
 import SummaryRow from '../components/SummaryRow.jsx'
 import { Check, Arrow, Clock } from '../components/Icons.jsx'
 
-const PAYMENT_METHODS = ['QRIS', 'Transfer bank', 'E-wallet']
+const PAYMENT_METHODS = ['QRIS']
 const asset = (name) => `${import.meta.env.BASE_URL}images/${name}`
 
 function ReviewHero({ sport, onHome, onGo }) {
@@ -38,7 +38,7 @@ function ReviewHero({ sport, onHome, onGo }) {
 
 export default function Tinjau({ sport, booking: b, set, onBack, onReset, onHome, onGo }) {
   const [paymentOpen, setPaymentOpen] = useState(false)
-  const [paymentMethod, setPaymentMethod] = useState('QRIS')
+  const paymentMethod = PAYMENT_METHODS[0]
   const [checkout, setCheckout] = useState(false)
   const [paid, setPaid] = useState(false)
   const [seconds, setSeconds] = useState(300)
@@ -123,22 +123,11 @@ export default function Tinjau({ sport, booking: b, set, onBack, onReset, onHome
           </div>
           <div className="grid items-start gap-6 lg:grid-cols-[1fr_0.9fr]">
             <section className="grid justify-items-center gap-4 rounded-2xl bg-white p-5 text-dark sm:p-7">
-              {paymentMethod === 'Transfer bank' ? (
-                <div className="grid min-h-64 w-full content-center justify-items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-6 text-center sm:min-h-80">
-                  <span className="rounded bg-dark px-3 py-1 text-sm font-bold text-white">BCA Virtual Account</span>
-                  <p className="text-sm text-slate-600">Nomor rekening simulasi</p>
-                  <strong className="text-2xl font-extrabold tracking-wider text-dark">8800 1234 5678 9001</strong>
-                  <p className="text-sm text-slate-600">Atas nama SARAGA · Kode transfer contoh</p>
-                </div>
-              ) : (
-                <>
-                  <div className="rounded-xl bg-white p-2"><img src={asset('qris-sample.png')} alt="Kode QRIS contoh untuk simulasi" className="size-56 object-contain sm:size-72" /></div>
-                  <span className="rounded bg-dark px-3 py-1 text-sm font-bold text-white">QRIS</span>
-                </>
-              )}
+              <div className="rounded-xl bg-white p-2"><img src={asset('qris-sample.png')} alt="Kode QRIS contoh untuk simulasi" className="size-56 object-contain sm:size-72" /></div>
+              <span className="rounded bg-dark px-3 py-1 text-sm font-bold text-white">QRIS</span>
               <p className="max-w-md text-center text-sm text-slate-600">Informasi pembayaran ini hanya contoh untuk simulasi tampilan. Tidak dapat digunakan untuk transaksi sungguhan.</p>
-              {paymentMethod !== 'Transfer bank' && <a href={asset('qris-sample.png')} download="saraga-qris-simulasi.png" className="inline-flex min-h-10 items-center justify-center rounded-xl bg-brand px-4 text-sm font-semibold text-white hover:bg-brand-dark">Simpan QRIS</a>}
-              {paymentMethod !== 'Transfer bank' && <div className="flex flex-wrap justify-center gap-2 text-xs font-semibold text-slate-500"><span className="rounded-full border px-3 py-1">OVO</span><span className="rounded-full border px-3 py-1">GoPay</span><span className="rounded-full border px-3 py-1">DANA</span><span className="rounded-full border px-3 py-1">LinkAja</span><span className="rounded-full border px-3 py-1">BCA</span><span className="rounded-full border px-3 py-1">Mandiri</span></div>}
+              <a href={asset('qris-sample.png')} download="saraga-qris-simulasi.png" className="inline-flex min-h-10 items-center justify-center rounded-xl bg-brand px-4 text-sm font-semibold text-white hover:bg-brand-dark">Simpan QRIS</a>
+              <div className="flex flex-wrap justify-center gap-2 text-xs font-semibold text-slate-500"><span className="rounded-full border px-3 py-1">OVO</span><span className="rounded-full border px-3 py-1">GoPay</span><span className="rounded-full border px-3 py-1">DANA</span><span className="rounded-full border px-3 py-1">LinkAja</span><span className="rounded-full border px-3 py-1">BCA</span><span className="rounded-full border px-3 py-1">Mandiri</span></div>
             </section>
             <aside className="grid gap-4 rounded-2xl border border-white/10 bg-dark-raised p-5">
               <h2 className="text-lg font-bold">Rincian pembayaran</h2>
@@ -186,9 +175,9 @@ export default function Tinjau({ sport, booking: b, set, onBack, onReset, onHome
       </div>
       <p className="mt-6 text-xs text-muted">Data contoh. Konsep desain mahasiswa, bukan situs resmi ITB atau SARAGA. {PRICE_NOTE}</p>
       </div>
-      <Dialog open={paymentOpen} onClose={() => setPaymentOpen(false)} title="Checkout" actions={<><Button variant="secondary" onClick={() => setPaymentOpen(false)}>Batal</Button><Button disabled={paymentCode.trim().toUpperCase() !== transactionId} onClick={() => { setPaymentOpen(false); setCheckout(true); setSeconds(300) }}>Lanjut ke pembayaran</Button></>}>
+      <Dialog open={paymentOpen} onClose={() => setPaymentOpen(false)} title="Checkout" actions={<><Button variant="secondary" onClick={() => setPaymentOpen(false)}>Batal</Button><Button disabled={paymentCode.trim().toUpperCase() !== transactionId} onClick={() => { setPaymentOpen(false); setCheckout(true); setSeconds(300) }}>Bayar Sekarang</Button></>}>
         <div className="rounded-xl bg-dark p-4 text-white"><p className="text-sm text-muted">Ringkasan pesanan</p><p className="mt-1 font-bold">{court.nama} · {days[b.dateIdx].panjang}</p><p className="mt-1 text-sm text-muted">{jam(b.hour)} sampai {jam(b.hour + b.duration)}</p><p className="mt-3 text-2xl font-extrabold text-lime">{rupiah(total)}</p></div>
-        <fieldset className="grid gap-2"><legend className="mb-1 font-semibold">Metode pembayaran</legend>{PAYMENT_METHODS.map((method) => <ChoiceOption key={method} name="payment-method" value={method} checked={paymentMethod === method} onChange={() => setPaymentMethod(method)} />)}</fieldset>
+        <p className="flex items-center justify-between text-sm"><span className="text-muted">Metode pembayaran</span><strong>{paymentMethod}</strong></p>
         <div className="grid gap-3 rounded-xl border border-white/15 bg-dark p-4">
           <div className="flex items-center justify-between gap-3 text-sm"><span className="text-muted">Kode pembayaran</span><strong className="rounded-md bg-lime px-2 py-1 font-bold text-dark">{transactionId}</strong></div>
           <InputField id="payment-code" label="Masukkan kode pembayaran" value={paymentCode} onChange={(event) => setPaymentCode(event.target.value.trim().toUpperCase())} />
