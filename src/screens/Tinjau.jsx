@@ -22,10 +22,10 @@ function ReviewHero({ sport, onHome, onGo }) {
       <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-dark/90 via-dark/65 to-dark/25" />
       <div className="relative z-10">
         <Header onHome={onHome} />
-        <div className="mx-auto max-w-6xl px-4 pt-5 sm:px-6"><Stepper current={1} onGo={onGo} /></div>
+        <div className="mx-auto max-w-6xl px-4 pt-5 sm:px-6"><Stepper current={2} onGo={onGo} /></div>
         <div className="mx-auto flex min-h-[280px] max-w-6xl items-end px-4 pb-12 pt-16 sm:px-6">
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-lime">Langkah 2 dari 3</p>
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-lime">Langkah 3 dari 3</p>
             <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Tinjau pesananmu</h1>
             <p className="mt-3 text-base text-white/85 sm:text-lg">Pastikan rincian dan aturan sudah sesuai sebelum membayar.</p>
           </div>
@@ -76,7 +76,6 @@ export default function Tinjau({ sport, booking: b, set, onBack, onReset, onHome
       <>
       <Header onHome={onHome} />
       <main className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
-        <div className="pt-6"><Stepper current={3} /></div>
         <section className="mx-auto mt-12 grid max-w-2xl justify-items-center gap-5 rounded-3xl border border-white/10 bg-dark-raised p-6 text-center shadow-2xl sm:p-10" role="status" aria-live="polite">
           <span className="grid size-16 place-items-center rounded-full bg-lime text-dark"><Check className="size-9" /></span>
           <div className="grid gap-2">
@@ -98,11 +97,30 @@ export default function Tinjau({ sport, booking: b, set, onBack, onReset, onHome
     )
   }
 
+  if (checkout && seconds === 0) {
+    return (
+      <>
+        <Header onHome={onHome} />
+        <main className="mx-auto flex min-h-[calc(100vh-5.5rem)] max-w-6xl items-center justify-center px-4 pb-16 sm:px-6">
+          <section className="grid max-w-xl justify-items-center gap-5 rounded-3xl border border-white/10 bg-dark-raised p-6 text-center shadow-2xl sm:p-10" role="alert">
+            <span className="grid size-16 place-items-center rounded-full bg-red-300/15 text-red-200"><Clock className="size-8" /></span>
+            <div className="grid gap-2">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-red-200">Pembayaran</p>
+              <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Waktu pembayaran habis</h1>
+              <p className="text-muted">Kode QRIS dan ID transaksi sudah tidak berlaku.</p>
+            </div>
+            <Button big onClick={onReset}>Kembali ke beranda</Button>
+          </section>
+        </main>
+      </>
+    )
+  }
+
   if (checkout) {
     return (
-      <main className="min-h-screen">
+      <>
         <Header onHome={onHome} />
-        <div className="mx-auto max-w-6xl px-4 pt-5 sm:px-6"><Stepper current={2} onGo={onGo} /></div>
+        <main className="min-h-[calc(100vh-5.5rem)]">
         <div className="mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-6">
           <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
@@ -110,14 +128,14 @@ export default function Tinjau({ sport, booking: b, set, onBack, onReset, onHome
               <p className="mt-2 text-sm text-muted sm:text-base">Pindai kode QR dengan aplikasi pembayaran favoritmu.</p>
             </div>
             <div className="flex w-full flex-col items-center gap-1 text-center sm:w-auto sm:items-end sm:text-right">
-              <div className="flex items-center gap-1.5 text-xs font-semibold text-white/90 sm:justify-end sm:text-[10px]">
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-white/90 sm:justify-end">
                 <Clock className="size-3.5 text-lime" /> Segera lakukan pembayaran
               </div>
               <div className="grid justify-items-center sm:justify-items-end">
                 <strong className={`text-3xl font-extrabold leading-none tabular-nums tracking-tight sm:text-5xl ${seconds === 0 ? 'text-red-300' : 'text-lime'}`}>
                   {String(Math.floor(seconds / 60)).padStart(2, '0')}:{String(seconds % 60).padStart(2, '0')}
                 </strong>
-                <span className="mt-1 text-[10px] text-muted">Menit : Detik</span>
+                <span className="mt-1 text-xs text-muted">Menit : Detik</span>
               </div>
             </div>
           </div>
@@ -137,13 +155,13 @@ export default function Tinjau({ sport, booking: b, set, onBack, onReset, onHome
                 <div className="flex justify-between gap-3"><dt className="text-muted">Status</dt><dd className={`rounded-full px-2 py-0.5 font-semibold ${seconds === 0 ? 'bg-red-400/15 text-red-200' : 'bg-lime/15 text-lime'}`}>{seconds === 0 ? 'Waktu habis' : 'Menunggu pembayaran'}</dd></div>
               </dl>
               <TotalBlock amount={rupiah(total)} hours={b.duration} />
-              <Button big onClick={confirmPayment} disabled={seconds === 0}>Konfirmasi sudah bayar <Arrow className="size-4" /></Button>
-              {seconds === 0 && <div className="grid gap-2 rounded-xl border border-red-200/20 bg-red-300/10 p-3 text-sm text-red-100"><p>Waktu pembayaran habis. QR dan nomor transaksi ini sudah tidak berlaku.</p><button type="button" onClick={() => { setCheckout(false); setPaymentOpen(true); setPaymentCode(''); setTransactionId(`GC${Math.floor(100 + Math.random() * 900)}`) }} className="justify-self-start font-semibold underline underline-offset-4">Buat sesi pembayaran baru</button></div>}
+              <Button big onClick={confirmPayment}>Konfirmasi sudah bayar <Arrow className="size-4" /></Button>
               <button type="button" onClick={() => setCheckout(false)} className="justify-self-center text-sm text-muted underline underline-offset-4">Kembali ke tinjauan</button>
             </aside>
           </div>
         </div>
-      </main>
+        </main>
+      </>
     )
   }
 
@@ -183,7 +201,7 @@ export default function Tinjau({ sport, booking: b, set, onBack, onReset, onHome
           <InputField id="payment-code" label="Masukkan kode pembayaran" value={paymentCode} onChange={(event) => setPaymentCode(event.target.value.trim().toUpperCase())} />
           <p className="text-xs text-muted">Masukkan kode di atas untuk melanjutkan.</p>
         </div>
-        <p className="text-xs text-muted">Pembayaran merupakan simulasi dan tidak memproses transaksi sungguhan.</p>
+        <p className="text-xs text-muted">Lakukan pembayaran dalam 5 menit. Pembayaran ini hanya simulasi dan tidak memproses transaksi sungguhan.</p>
       </Dialog>
     </main>
   )

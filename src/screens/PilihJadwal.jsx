@@ -105,7 +105,7 @@ export default function PilihJadwal({ sport, booking: b, set, onBack, onNext, on
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-dark/90 via-dark/55 to-dark/20" />
         <div className="relative z-10">
           <Header onHome={onHome} />
-          {b.courtId != null && <div className="mx-auto max-w-6xl px-4 pt-5 sm:px-6"><Stepper current={0} onGo={onGo} /></div>}
+          {b.courtId != null && <div className="mx-auto max-w-6xl px-4 pt-5 sm:px-6"><Stepper current={1} onGo={onGo} /></div>}
           <div className="mx-auto grid min-h-[280px] max-w-6xl grid-cols-1 items-end gap-4 px-4 pb-12 pt-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_auto]">
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.2em] text-lime">Jadwal {sport.nama}</p>

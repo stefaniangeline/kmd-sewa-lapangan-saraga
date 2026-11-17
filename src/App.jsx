@@ -14,7 +14,6 @@ export default function App() {
 
   const set = (patch) => setBooking((b) => ({ ...b, ...patch }))
   const go = (n) => setStep(n)
-  const goBookingStage = (stage) => setStep(stage + 1)
 
   useEffect(() => {
     window.scrollTo({ top: 0 })
@@ -45,7 +44,7 @@ export default function App() {
     <>
       {step === 0 && <PilihOlahraga onPick={pickSport} onHome={reset} />}
       {step === 1 && (
-          <PilihJadwal sport={sport} booking={booking} set={set} onBack={() => go(0)} onNext={() => go(2)} onHome={reset} onGo={goBookingStage} />
+          <PilihJadwal sport={sport} booking={booking} set={set} onBack={() => go(0)} onNext={() => go(2)} onHome={reset} onGo={go} />
       )}
       {step === 2 && (
         <Tinjau
@@ -55,7 +54,7 @@ export default function App() {
           onBack={() => go(1)}
           onReset={reset}
           onHome={reset}
-          onGo={goBookingStage}
+          onGo={go}
         />
       )}
       <div className="pointer-events-none fixed inset-x-0 bottom-20 z-20 flex justify-center px-4 lg:bottom-6">

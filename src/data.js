@@ -34,10 +34,10 @@ export function priceAt(hour, weekend = false) {
 export const isWeekendDate = (d) => d.getDay() === 0 || d.getDay() === 6
 
 export const COURTS_BASKET_VOLI = [
-  { id: 'A', nama: 'Basket A', foto: 'basket-voli.jpg', untuk: ['Basket'] },
-  { id: 'B', nama: 'Basket B', foto: 'basket-voli.jpg', untuk: ['Basket'] },
-  { id: 'C', nama: 'Basket/Voli C', foto: 'basket-voli.jpg', untuk: ['Basket', 'Voli'] },
-  { id: 'D', nama: 'Basket/Voli D', foto: 'basket-voli.jpg', untuk: ['Basket', 'Voli'] },
+  { id: 'A', nama: 'Basket A', foto: 'basket-a.jpg', untuk: ['Basket'] },
+  { id: 'B', nama: 'Basket B', foto: 'basket-b.jpg', untuk: ['Basket'] },
+  { id: 'C', nama: 'Basket/Voli C', foto: 'basket-c.jpg', untuk: ['Basket', 'Voli'] },
+  { id: 'D', nama: 'Basket/Voli D', foto: 'basket-d.jpg', untuk: ['Basket', 'Voli'] },
 ]
 
 export const SPORTS = [

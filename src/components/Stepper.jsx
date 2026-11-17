@@ -1,6 +1,6 @@
 import { Check } from './Icons.jsx'
 
-const STEPS = ['Pilih jadwal', 'Tinjau', 'Pembayaran']
+const STEPS = ['Pilih olahraga', 'Pilih jadwal', 'Tinjau']
 
 export default function Stepper({ current, onGo }) {
   return (
@@ -12,6 +12,7 @@ export default function Stepper({ current, onGo }) {
           <li key={label} className="flex min-w-0 flex-1 items-center last:flex-none" aria-current={cur ? 'step' : undefined}>
             <button
               type="button"
+              aria-label={label}
               disabled={!done || !onGo}
               onClick={() => onGo(i)}
               className={`flex shrink-0 items-center gap-2 rounded-full text-xs ${cur ? 'font-semibold text-white' : 'text-white/75'} ${done && onGo ? 'cursor-pointer' : 'cursor-default'}`}

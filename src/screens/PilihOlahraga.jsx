@@ -4,10 +4,9 @@ import Button from '../components/Button.jsx'
 import Dialog from '../components/Dialog.jsx'
 import Header from '../components/Header.jsx'
 import InfoBar from '../components/InfoBar.jsx'
+import Photo from '../components/Photo.jsx'
 import { Arrow } from '../components/Icons.jsx'
 import SportCard from '../components/SportCard.jsx'
-
-const asset = (name) => `${import.meta.env.BASE_URL}images/${name}`
 
 export default function PilihOlahraga({ onPick, onHome }) {
   const [rulesOpen, setRulesOpen] = useState(false)
@@ -15,7 +14,7 @@ export default function PilihOlahraga({ onPick, onHome }) {
   return (
     <main className="pb-16">
       <section className="relative isolate min-h-[610px] overflow-hidden sm:min-h-[690px]">
-        <img src={asset('saraga-home-hero.png')} alt="Lapangan olahraga SARAGA" className="absolute inset-0 size-full object-cover" />
+        <Photo src="hero.jpg" label="olahraga" className="absolute inset-0 size-full" />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-dark/95 via-dark/75 to-dark/30" />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-dark/85 via-transparent to-dark/25" />
         <div className="relative z-10">
