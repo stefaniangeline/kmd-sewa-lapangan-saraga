@@ -79,7 +79,7 @@ function Summary({ sport, days, b, set, total, onNext, canNext }) {
       </dl>
       <TotalBlock amount={rupiah(total)} hours={b.hour == null ? 0 : b.duration} />
       <p className="rounded-lg bg-brand-soft p-2.5 text-xs text-muted">
-        Perubahan jadwal dikenai biaya tambahan. Rinciannya ada di langkah Tinjau.
+        Perubahan jadwal hanya lewat konter SARAGA, tidak lewat web. Rinciannya ada di langkah Tinjau.
       </p>
       <Button big className="w-full" disabled={!canNext} onClick={onNext}>
         Lanjut ke tinjauan <Arrow className="size-4" />

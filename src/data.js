@@ -54,11 +54,11 @@ const BOOKED = [
 ]
 
 export const RULES = [
-  'Perubahan jadwal dikenai biaya tambahan (nominal menyusul) dan hanya bisa lewat Bagian Pelayanan pada hari dan jam kerja (jam menyusul).',
+  'Perubahan jadwal tidak bisa dilakukan lewat web. Silakan datang langsung ke konter SARAGA.',
   'Penyewaan lapangan tidak digunakan untuk event olahraga. Untuk event, konfirmasi dulu ke Bagian Pelayanan.',
   'Keterangan Free Tiket menyusul, menunggu arti istilah dari situs asli terkonfirmasi.',
 ]
-export const CONTACT = 'Kontak Bagian Pelayanan: menyusul'
+export const CONTACT = 'Kontak Bagian Pelayanan: 022-2511540'
 
 export function slotStatus(dateIdx, courtId, hour) {
   if (dateIdx === 0 && hour < DEMO_NOW_HOUR) return 'lewat'
