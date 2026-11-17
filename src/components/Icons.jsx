@@ -21,3 +21,12 @@ export const Right = (p) => (
 export const Arrow = (p) => (
   <svg {...base} {...p}><path d="M3 8h10M9 4l4 4-4 4" /></svg>
 )
+export const ArrowUpRight = (p) => (
+  <svg {...base} {...p}><path d="M5 11L11 5M5 5h6v6" /></svg>
+)
+export const Calendar = (p) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...p}>
+    <rect x="4" y="6" width="16" height="15" rx="2" />
+    <path d="M8 3v5M16 3v5M4 10h16M9 14h2v2H9z" />
+  </svg>
+)
