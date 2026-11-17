@@ -56,7 +56,6 @@ const BOOKED = [
 export const RULES = [
   'Perubahan jadwal tidak bisa dilakukan lewat web. Silakan datang langsung ke konter SARAGA.',
   'Penyewaan lapangan tidak digunakan untuk event olahraga. Untuk event, konfirmasi dulu ke Bagian Pelayanan.',
-  'Keterangan Free Tiket menyusul, menunggu arti istilah dari situs asli terkonfirmasi.',
 ]
 export const CONTACT = 'Kontak Bagian Pelayanan: 022-2511540'
 
@@ -102,4 +101,4 @@ export function getDays(count = 7) {
 }
 
 export const rupiah = (n) => 'Rp ' + n.toLocaleString('id-ID')
-export const jam = (h) => String(h).padStart(2, '0') + ':00'
+export const jam = (h) => String(h).padStart(2, '0') + '.00'
