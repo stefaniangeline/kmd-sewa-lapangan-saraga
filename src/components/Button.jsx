@@ -9,8 +9,8 @@ export default function Button({ variant = 'primary', big = false, className = '
     <button
       type="button"
       {...props}
-      className={`inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-colors disabled:cursor-not-allowed ${
-        big ? 'min-h-14 px-6 text-base' : 'min-h-12 px-4 text-sm'
+      className={`inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors disabled:cursor-not-allowed ${
+        big ? 'min-h-14 px-6 text-base' : 'min-h-12 px-5 text-base'
       } ${variants[variant]} ${className}`}
     />
   )
