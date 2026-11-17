@@ -1,8 +1,8 @@
 export const DEMO_NOW_HOUR = 15
 
 export const USER_PROFILE = {
-  name: 'Stefani',
-  initials: 'S',
+  name: 'Mahasiswa',
+  initials: 'M',
 }
 
 export const FIRST_HOUR = 6
