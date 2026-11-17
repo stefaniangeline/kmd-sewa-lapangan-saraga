@@ -175,6 +175,9 @@ export default function PilihJadwal({ sport, booking: b, set, onBack, onNext, on
               <LegendItem status="selected" label="Dipilih" />
               <LegendItem status="booked" label="Dipesan" />
               <LegendItem status="passed" label="Terlewat" />
+              <li className="flex items-center gap-1.5 text-xs text-white/75">
+                <i aria-hidden="true" className="size-3.5 rounded-[3px] border border-brand bg-brand/55" />Termasuk durasi
+              </li>
             </ul>
             {b.courtId == null ? (
               <div className="grid min-h-[144px] justify-items-center content-center gap-2 rounded-2xl border border-dashed border-white/40 bg-white/10 px-4 py-5 text-center">
